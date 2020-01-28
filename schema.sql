@@ -1,20 +1,21 @@
-drop database if exists bamazonDB;
-create database bamazonDB;
+DROP DATABASE IF EXISTS bamazonDB;
 
-use bamazonDB;
+CREATE database bamazonDB;
 
-create table products (
-    itemID int(4) not null,
-    product varchar(100) not null,
-    price decimal(10,2) not null,
-    stock int(50) not null,
-    primary key (itemID)
+USE bamazonDB;
+
+CREATE TABLE products (
+    itemID INT(4) AUTO_INCREMENT NOT NULL,
+    product VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    stock INT(50) NOT NULL,
+    PRIMARY KEY (itemID)
 );
 
-select * from products;
+SELECT * FROM products;
 
-insert into products(itemID, product, price, stock)
-values (111, "poptarts", 1.99, 50),
+INSERT INTO products (itemID, product, price, stock)
+VALUES (111, "poptarts", 1.99, 50),
         (222, "seagull heart", 50.99, 25),
         (333, "sending stone", 149.99, 2),
         (444, "climbing rope", 24.99, 7),

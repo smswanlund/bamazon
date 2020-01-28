@@ -1,7 +1,7 @@
 //dependencies
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var Table = require("cli-table");
+require("console.table");
 
 var connection = mysql.createConnection({
     host:"localhost",
@@ -14,6 +14,8 @@ var connection = mysql.createConnection({
 connection.connect(function(err){
     if (err) throw err;
     console.log("connected to bamazon");
+
+    displayProducts();
 })
 
 var displayProducts = function(){
@@ -21,19 +23,12 @@ var displayProducts = function(){
     var query = "select * from products"
     connection.query(query, function(err, res){
         if (err) throw err;
-        var displayTable = new Table({
-            head:["Item ID", "Product", "Price", "Stock"],
-            colWidths:[10,10,10,10]
-        });
-        for(var i = 0; i<res.length; i++){
-            displayTable.push(res[i].itemID, res[i].product, res[i].price, res[i].stock);
-        }
-        console.log(displayTable.toString());
-        purchaseInquiry();
+        console.table(res)
+        purchaseInquiry(res);
     });
 }
 
-function purchaseInquiry() {
+function purchaseInquiry(inventory) {
 
     inquirer.prompt([
         {
@@ -78,5 +73,3 @@ function purchaseProcessing(ID, quantity) {
     });
 
 };
-
-displayProducts();
